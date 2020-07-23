@@ -21,4 +21,13 @@ class Tree:
         
         return number + 1
 
-    
+    def print_tree(self):
+        self.__print_tree(self.get_root())
+
+    def __print_tree(self, node):
+        #print("test")
+        if node == None:
+            return
+        print(node.get_column_name())
+        for c in node.get_children().values():
+            self.__print_tree(c)
