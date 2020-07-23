@@ -14,3 +14,6 @@ if __name__ == "__main__":
     dataset = [list(x) for x in zip(*dataset_file)]
         
     trainer = Trainer(tree, dataset)
+    trainer.begin_training()
+
+    tree.print_tree()

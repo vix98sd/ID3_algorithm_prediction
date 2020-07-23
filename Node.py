@@ -1,20 +1,20 @@
 from Node_type import Node_type
 
 class Node:
-    def __init__(self, data, type):
-        self.__data = data
+    def __init__(self):
+        self.__column_name = None
+        self.__type = None
         self.__children = {}
-        self.__type = type
 
-    def get_data(self):
-        return self.__data
-    def set_data(self, data):
-        self.__data = data
+    def get_column_name(self):
+        return self.__column_name
+    def set_column_name(self, column_name):
+        self.__column_name = column_name
 
     def get_type(self):
         return self.__type
     def set_type(self, type):
-        return self.__type
+        self.__type = type
 
     def get_children(self):
         return self.__children
