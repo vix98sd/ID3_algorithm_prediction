@@ -22,12 +22,12 @@ class Tree:
         return number + 1
 
     def print_tree(self):
-        self.__print_tree(self.get_root())
+        self.__print_tree(self.get_root(), "root", "")
 
-    def __print_tree(self, node):
-        #print("test")
+    def __print_tree(self, node, branch_name, deep):
         if node == None:
             return
-        print(node.get_column_name())
-        for c in node.get_children().values():
-            self.__print_tree(c)
+        print(deep + branch_name, node.get_column_name())
+        deep += "-"
+        for c in node.get_children().keys():
+            self.__print_tree(node.get_children()[c], c, deep)
