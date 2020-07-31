@@ -14,18 +14,25 @@ class Tester():
     # Method which starting looping trough testing dataset
     def begin_testing(self):
         positive_tests = 0
+        negative_tests = 0
+        not_trained = 0
         for dataline in self.__dataset[1:]:
-            if self.__check_line(dataline, self.__dataset[0], self.__tree.get_root()):
+            test_res = self.__check_line(dataline, self.__dataset[0], self.__tree.get_root())
+            if test_res == 1:
                 positive_tests += 1
-        print("Your algorithm have " + str(positive_tests) + " succeded tests, of " + str(len(self.__dataset) - 1) + " tests in testing dataset.")
+            elif test_res == 0:
+                negative_tests += 1
+            else:
+                not_trained += 1
+        print("Your algorithm have " + str(positive_tests) + " succeded tests, " + str(negative_tests) + " negative tests, and your algorithm is not trained for " + not_trained + " tests.")
 
     # Method which checks accurency of algorithm for the given row
     def __check_line(self, dataline, labels, node):
         if node.get_type() == Node_type.Leaf:
             if node.get_column_name() == dataline[-1]:
-                return True
+                return 1
             else:
-                return False
+                return 0
         
         label_index = labels.index(node.get_column_name())
         try:
@@ -33,4 +40,4 @@ class Tester():
         except:
             print("Algorithm didn't learn how to predict your input.")
             print(dataline)
-            return False
+            return 2
