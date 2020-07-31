@@ -1,9 +1,10 @@
 class Play_dataset:
     def __init__(self, path):
         self.__path = path
-        self.__dataset = None
+        self.__training_dataset = None
+        self.__testing_dataset = None
 
-    def __prepare_dataset(self):
+    def __prepare_training_dataset(self):
         f = open(self.__path, "r")
         dataset_file = f.readlines()
         f.close()
@@ -13,13 +14,34 @@ class Play_dataset:
             dataline = dataset_file[i].replace("\n", "").split(",")[1:]
             dataset_file[i] = dataline
 
-        self.__dataset = [list(x) for x in zip(*dataset_file)]
+        self.__training_dataset = [list(x) for x in zip(*dataset_file)]
 
-    def get_dataset(self):
-        if self.__dataset is None:
+    def get_training_dataset(self):
+        if self.__training_dataset is None:
             try:
-                self.__prepare_dataset()
+                self.__prepare_training_dataset()
             except:
-                print("Error occured while trying to prepare Play dataset.")
+                print("Error occured while trying to prepare Play training dataset.")
                 exit()
-        return self.__dataset
+        return self.__training_dataset
+
+    def __prepare_testing_dataset(self):
+        self.__testing_dataset = [list(x) for x in zip(*self.get_training_dataset())]
+
+    def get_testing_dataset(self):
+        if self.__testing_dataset is None:
+            try:
+                self.__prepare_testing_dataset()
+            except:
+                print("Error occured while trying to prepare Play testing dataset.")
+                exit()
+        return self.__testing_dataset
+
+
+
+
+
+
+
+
+
